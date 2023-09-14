@@ -10,10 +10,10 @@ const ContactForm = ({ onSubmit }) => {
 
   const inputHandleChange = (evt) => {
     const { name, value } = evt.target;
-    setFormData({
-      ...formData,
+    setFormData((prevFormData) => ({
+      ...prevFormData,
       [name]: value,
-    });
+    }));
   };
 
   const handleSubmit = (evt) => {

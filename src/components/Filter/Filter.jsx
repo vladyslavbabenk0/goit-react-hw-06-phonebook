@@ -1,21 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import css from './Filter.module.css';
 
-const Filter = ({ filter, handleFilterChange }) => (
-  <label className={css.filterTitle}>
+const Filter = ({ handleFilterChange }) => {
+  const [filter, setFilter] = useState('');
+
+  const handleChange = (event) => {
+    const newFilter = event.target.value;
+    setFilter(newFilter);
+    handleFilterChange(newFilter);
+  };
+
+  return (
+    <label className={css.filterTitle}>
       Filter
-    <input
+      <input
         className={css.filterInput}
         type="text"
         value={filter}
-        onChange={handleFilterChange}
-    ></input>
-  </label>
-);
+        onChange={handleChange}
+      />
+    </label>
+  );
+};
 
 Filter.propTypes = {
-  filter: PropTypes.string.isRequired,
   handleFilterChange: PropTypes.func.isRequired,
 };
 

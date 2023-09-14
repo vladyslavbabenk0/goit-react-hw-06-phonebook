@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 import css from './ContactItem.module.css';
 
 const ContactItem = ({ id, name, number, handleDelete }) => {
+  const handleDeleteClick = () => {
+    handleDelete(id);
+  };
+
   return (
     <li key={id} className={css.contactItem}>
       <span>
@@ -11,9 +15,7 @@ const ContactItem = ({ id, name, number, handleDelete }) => {
       <button
         className={css.contactItemBtn}
         type="button"
-        onClick={() => {
-          handleDelete(id);
-        }}
+        onClick={handleDeleteClick}
       >
         Delete
       </button>
