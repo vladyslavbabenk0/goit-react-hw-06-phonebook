@@ -1,31 +1,31 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setFilter } from 'redux/filter/filter-slice';
+import { getFilter } from 'redux/filter/filter-selectors';
 import css from './Filter.module.css';
 
-const Filter = ({ handleFilterChange }) => {
-  const [filter, setFilter] = useState('');
+const Filter = () => {
+  const filter = useSelector(getFilter);
+  const dispatch = useDispatch();
 
-  const handleChange = (event) => {
-    const newFilter = event.target.value;
-    setFilter(newFilter);
-    handleFilterChange(newFilter);
+  const handleChangeFilter = (evt) => {
+    dispatch(setFilter(evt.target.value.trim()));
   };
 
   return (
-    <label className={css.filterTitle}>
-      Filter
-      <input
-        className={css.filterInput}
-        type="text"
-        value={filter}
-        onChange={handleChange}
-      />
-    </label>
+    <div className={css.filter}>
+      <label className={css.labelFilter}>
+        Find contacts by name
+        <input
+          className={css.filterInput}
+          type="text"
+          name="filter"
+          value={filter}
+          onChange={handleChangeFilter}
+        />
+      </label>
+    </div>
   );
-};
-
-Filter.propTypes = {
-  handleFilterChange: PropTypes.func.isRequired,
 };
 
 export default Filter;
